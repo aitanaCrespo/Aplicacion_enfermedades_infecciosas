@@ -150,27 +150,32 @@ texto = '<p></p><p style="font-family: \'Times New Roman\'; font-size: 25px; fon
 st.write(texto, unsafe_allow_html=True)
 
 # Selección dinámica del número de genes
-num_genes = st.number_input("Número de genes que quieres introducir:", min_value=1, max_value=20, step=1, value=1)
 
-# Crear columnas dinámicamente
-cols = st.columns(num_genes, gap="large")
+num_genes = st.number_input("Número de genes que quieres introducir:", min_value=1, max_value=20, step=1, value=1)
 
 # Inicializar listas para almacenar los datos
 genes = []
 alelos1 = []
 alelos2 = []
 
-# Crear las entradas dinámicamente
+# Crear las entradas dinámicamente por filas
 for i in range(num_genes):
-    with cols[i]:
+    st.write(f"### Gen {i+1}")  # Opcional: para etiquetar cada fila
+    # Crear una fila con tres columnas: una para el gen y dos para los alelos
+    col1, col2, col3 = st.columns(3, gap="medium")
+    with col1:
         gen = st.text_input(label=f"Gen {i+1}", placeholder="Introduzca el gen", key=f"gen_{i}")
-        lista_alelos = buscarAlelosGen(gen)
-        alelo_1 = st.selectbox(f"Alelo 1", ['-'] + lista_alelos, key=f"alelo1_{i}")
-        alelo_2 = st.selectbox(f"Alelo 2", ['-'] + lista_alelos, key=f"alelo2_{i}")
-        
-        genes.append(gen)
-        alelos1.append(alelo_1)
-        alelos2.append(alelo_2)
+    with col2:
+        lista_alelos = buscarAlelosGen(gen)  # Busca alelos en función del gen ingresado
+        alelo_1 = st.selectbox(f"Alelo 1 de Gen {i+1}", ['-'] + lista_alelos, key=f"alelo1_{i}")
+    with col3:
+        alelo_2 = st.selectbox(f"Alelo 2 de Gen {i+1}", ['-'] + lista_alelos, key=f"alelo2_{i}")
+    
+    # Guardar los datos en las listas
+    genes.append(gen)
+    alelos1.append(alelo_1)
+    alelos2.append(alelo_2)
+
 
 #==================================================================================================================================
 # RESULTADOS
