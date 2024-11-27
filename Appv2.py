@@ -128,6 +128,7 @@ def fenotipoSegunAlelos(gen,alelo1,alelo2):
     import json
     import requests
     listaAlelos=[]
+
     url="https://api.cpicpgx.org/v1/diplotype?genesymbol=eq."+gen+"&diplotype=eq."+alelo1+"/"+alelo2
     response= requests.get(url)
     json_obtenido = response.json()
