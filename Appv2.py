@@ -11,6 +11,45 @@ from fpdf import FPDF
 #INICIO
 #==================================================================================================================================
 st.set_page_config(layout="wide", page_icon='logo2.jpeg', page_title="Enf_infecciosas")
+
+# CSS para cambiar el fondo
+page_bg_color = """
+     <style>
+     .stApp {
+         background-color: #72aaf6; /* Cambia a azul cielo */
+     }
+     </style>
+ """
+st.markdown(page_bg_color, unsafe_allow_html=True)
+
+
+
+button_style = """ <style> button { background-color: white !important; color: black !important; } </style> """ 
+# Aplicar el CSS 
+st.markdown(button_style, unsafe_allow_html=True)
+
+# CSS para cambiar el color de fondo de las celdas de entrada de texto 
+input_style = """ <style> input { background-color: white !important; color: black !important; } </style> """ # Aplicar el CSS 
+st.markdown(input_style, unsafe_allow_html=True)
+
+input_and_selectbox_style = """
+ <style>
+ /* Estilo para el input de texto */
+ div[data-testid="stTextInput"] > div > div > input {
+     background-color: white !important;
+     color: black !important;
+ }
+
+ /* Estilo para el selectbox */
+ div[data-testid="stSelectbox"] > div > div > div {
+     background-color: white !important;
+     color: black !important;
+ }
+ </style>
+ """
+st.markdown(input_and_selectbox_style, unsafe_allow_html=True)
+
+
 col1, col2 = st.columns([1,1], gap="large")
 with col1:
     texto = '<p></p><p style="font-family: \'Times New Roman\'; font-size: 40px; font-weight: bold; text-transform: uppercase;">PREVENCIÓN Y TERAPÉUTICA DE PRECISIÓN</p>'
@@ -46,7 +85,7 @@ with col1:
     farmacos = tratamiento.split(',')
     farmacos = [i.strip().lower() for i in farmacos]
 with col2:
-    st.image("logo2.jpeg")
+    st.image("logo2b.png")
     
 
 
