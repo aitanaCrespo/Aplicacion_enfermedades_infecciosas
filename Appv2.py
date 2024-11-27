@@ -105,7 +105,13 @@ def buscarAlelosGen(gen):
     datos=json_obtenido
     for i in range(len(datos)):
         alelo=datos[i]["name"]
-        listaAlelos.append(alelo)
+        if gen == 'HLA-B':
+            alelo1=f"{alelo} negative"
+            alelo2=f"{alelo} positive"
+            listaAlelos.append(alelo1)
+            listaAlelos.append(alelo2)
+        else:
+            listaAlelos.append(alelo)
     setAlelos=set(listaAlelos)
     ListaFiltradaAlelos=(list(setAlelos))
     ListaFiltradaAlelos.sort()
@@ -128,8 +134,10 @@ def fenotipoSegunAlelos(gen,alelo1,alelo2):
     import json
     import requests
     listaAlelos=[]
-
-    url="https://api.cpicpgx.org/v1/diplotype?genesymbol=eq."+gen+"&diplotype=eq."+alelo1+"/"+alelo2
+    if gen == 'HLA-B':
+        url="https://api.cpicpgx.org/v1/diplotype?genesymbol=eq."+gen+"&diplotype=eq."+alelo1
+    else:
+        url="https://api.cpicpgx.org/v1/diplotype?genesymbol=eq."+gen+"&diplotype=eq."+alelo1+"/"+alelo2
     response= requests.get(url)
     json_obtenido = response.json()
     datos=json_obtenido
